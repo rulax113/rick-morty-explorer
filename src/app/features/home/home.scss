@@ -1,15 +1,18 @@
 .home-page {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   
     .hero-section {
-      padding: 3rem 0 2rem;
+      padding: 2rem 0 1rem;
       border-bottom: 1px solid #ddd;
   
       h1 {
         font-size: 2.5rem;
         color: #e23636;
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
       }
   
       .description {
@@ -18,27 +21,87 @@
         margin-bottom: 1.5rem;
         line-height: 1.6;
       }
+    }
   
-      .cta-btn {
-        display: inline-block;
-        background: #e23636;
-        color: white;
-        padding: 0.7rem 1.5rem;
-        border-radius: 6px;
-        font-weight: 600;
-        &:hover { background: #c22; text-decoration: none; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+  
+      .stat-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border-top: 4px solid #ccc;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+  
+        &.active { border-top-color: #28a745; }
+        &.deceased { border-top-color: #dc3545; }
+        &.retired { border-top-color: #ffc107; }
+  
+        .stat-number {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #1a1a1a;
+        }
+  
+        .stat-label {
+          font-size: 0.9rem;
+          color: #666;
+        }
+      }
+    }
+  
+    .strongest-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  
+      h2 { margin-bottom: 1rem; font-size: 1.3rem; }
+  
+      .strongest-inner {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+  
+        img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          object-position: top;
+          border-radius: 50%;
+          border: 3px solid #e23636;
+        }
+  
+        h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+        p { color: #666; margin-bottom: 0.3rem; }
       }
     }
   
     .about-section {
-      margin-top: 2rem;
-      padding: 1.5rem;
       background: white;
       border-left: 4px solid #e23636;
       border-radius: 4px;
+      padding: 1.5rem;
       box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   
       h2 { margin-bottom: 1rem; font-size: 1.3rem; }
       p { margin-bottom: 0.5rem; color: #444; }
+    }
+  
+    .cta-btn {
+      display: inline-block;
+      background: #e23636;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      &:hover { background: #c22; text-decoration: none; }
     }
   }
