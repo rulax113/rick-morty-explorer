@@ -1,1 +1,12 @@
-<p>home works!</p>
+<section class="home-page">
+    <h1>{{ projectName }}</h1>
+    <p>{{ projectDescription }}</p>
+    <a routerLink="/characters">Przeglądaj bohaterów →</a>
+  
+    <div class="about-section">
+      <h2>O autorze projektu</h2>
+      <p><strong>Imię i nazwisko:</strong> {{ author.name }}</p>
+      <p><strong>Kierunek:</strong> {{ author.study }}</p>
+      <p>{{ author.note }}</p>
+    </div>
+  </section>
