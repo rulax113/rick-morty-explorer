@@ -3,19 +3,23 @@
     <div class="card-body">
       <h3>{{ character.name }}</h3>
       <p>{{ character.series }}</p>
-      <span>{{ statusLabels[character.status] }}</span>
+      <span [class]="character.status">{{ statusLabels[character.status] }}</span>
       <p>Moc: {{ character.power }}/10</p>
   
       @if (showDetails) {
         <p>{{ character.description }}</p>
-        @for (tag of character.tags; track tag) {
-          <span class="tag">{{ tag }}</span>
-        }
+        <div>
+          @for (tag of character.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
       }
   
-      <button (click)="toggleDetails()">
-        {{ showDetails ? 'Zwiń' : 'Rozwiń szczegóły' }}
-      </button>
-      <a [routerLink]="['/characters', character.id]">Szczegóły →</a>
+      <div class="card-actions">
+        <button (click)="toggleDetails()">
+          {{ showDetails ? 'Zwiń' : 'Rozwiń szczegóły' }}
+        </button>
+        <a [routerLink]="['/characters', character.id]">Szczegóły →</a>
+      </div>
     </div>
   </div>

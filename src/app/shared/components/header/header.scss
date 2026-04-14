@@ -1,0 +1,29 @@
+header {
+  background: #1a1a1a;
+  color: white;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+
+  span {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e23636;
+    letter-spacing: 1px;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      color: #ccc;
+      font-weight: 500;
+      transition: color 0.2s;
+      &:hover, &.active { color: #e23636; text-decoration: none; }
+    }
+  }
+}
