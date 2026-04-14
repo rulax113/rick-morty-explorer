@@ -1,1 +1,22 @@
-<p>characters works!</p>
+<section>
+    <h1>Bohaterowie ({{ filteredCharacters.length }})</h1>
+    <input
+      type="text"
+      placeholder="Szukaj..."
+      [value]="searchQuery"
+      (input)="onSearchChange($event)"
+    />
+  
+    @if (filteredCharacters.length === 0) {
+      <app-empty-state [message]="'Brak wyników dla: ' + searchQuery" />
+    } @else {
+      <div class="cards-grid">
+        @for (character of filteredCharacters; track character.id) {
+          <app-item-card
+            [character]="character"
+            (selected)="onCardSelected($event)"
+          />
+        }
+      </div>
+    }
+  </section>

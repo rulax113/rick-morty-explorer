@@ -1,22 +1,32 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Character } from '../../core/models/character.model';
+import { MOCK_CHARACTERS } from '../../core/models/characters.data';
+import { ItemCard } from '../../shared/components/item-card/item-card';
+import { EmptyState } from '../../shared/components/empty-state/empty-state';
 
-import { Characters } from './characters';
+@Component({
+  selector: 'app-characters',
+  imports: [CommonModule, ItemCard, EmptyState],
+  templateUrl: './characters.html',
+  styleUrl: './characters.scss',
+})
+export class Characters {
+  characters: Character[] = MOCK_CHARACTERS;
+  searchQuery = '';
 
-describe('Characters', () => {
-  let component: Characters;
-  let fixture: ComponentFixture<Characters>;
+  get filteredCharacters(): Character[] {
+    const q = this.searchQuery.toLowerCase();
+    return this.characters.filter(c =>
+      c.name.toLowerCase().includes(q) || c.series.toLowerCase().includes(q)
+    );
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Characters],
-    }).compileComponents();
+  onSearchChange(event: Event): void {
+    this.searchQuery = (event.target as HTMLInputElement).value;
+  }
 
-    fixture = TestBed.createComponent(Characters);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  onCardSelected(character: Character): void {
+    console.log('Wybrano:', character.name);
+  }
+}
