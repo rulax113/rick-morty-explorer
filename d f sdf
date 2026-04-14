@@ -1,0 +1,14 @@
+[33m2f149f9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m feat: add styling for layout, header and character cards
+[33me370162[m docs: add README with project description, CRUD plan and architecture
+[33m0e39cd7[m feat: add empty state component with input binding
+[33mba191e7[m feat: implement header component with navigation and routing
+[33m250f72c[m feat: add home page with project description and author section
+[33m8748207[m feat: configure routing with lazy loading
+[33mc6d3262[m fix: resolve template path issues and fix component configuration
+[33mb9ce672[m feat: add empty state and error message components
+[33m0840f2f[m feat: add empty state and error message components
+[33m8e6acbf[m feat: implement header component with navigation
+[33m1a57273[m feat: generate base components (header, features, shared UI)
+[33mb3ac9ef[m feat: add character model and mock data with initial project structure
+[33mf31d24b[m feat: add project folder structure with gitkeep files
+[33m5a4b34c[m feat: initial Angular project clean structure
