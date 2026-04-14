@@ -1,1 +1,25 @@
-<p>character-detail works!</p>
+<div class="detail-page">
+    <a routerLink="/characters" class="back-link">← Powrót do listy</a>
+  
+    @if (character) {
+      <div class="detail-card">
+        <img [src]="character.imageUrl" [alt]="character.name" />
+        <div class="detail-info">
+          <h1>{{ character.name }}</h1>
+          <p class="series">{{ character.series }}</p>
+          <span [class]="'status ' + character.status">
+            {{ statusLabels[character.status] }}
+          </span>
+          <p class="description">{{ character.description }}</p>
+          <p class="power">Poziom mocy: <strong>{{ character.power }}/10</strong></p>
+          <div class="tags">
+            @for (tag of character.tags; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <p>Nie znaleziono postaci.</p>
+    }
+  </div>
