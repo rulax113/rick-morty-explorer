@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CharacterService } from '../../core/services/character.service';
 
 @Component({
   selector: 'app-character-form',
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CharacterForm {
   form: FormGroup;
+  isSubmitting = false;
 
   statuses = [
     { value: 'active', label: 'Aktywny' },
@@ -18,7 +20,11 @@ export class CharacterForm {
     { value: 'deceased', label: 'Poległy' }
   ];
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private characterService: CharacterService
+  ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
@@ -29,9 +35,16 @@ export class CharacterForm {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      console.log('Nowa postać:', this.form.value);
-      this.router.navigate(['/characters']);
-    }
+    if (this.form.invalid) return;
+
+    this.isSubmitting = true;
+    this.characterService.add(this.form.value).subscribe({
+      next: () => {
+        this.router.navigate(['/characters']);
+      },
+      error: () => {
+        this.isSubmitting = false;
+      }
+    });
   }
 }
