@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { Character } from '../models/character.model';
 import { MOCK_CHARACTERS } from '../models/characters.data';
 
@@ -11,7 +10,7 @@ export class CharacterService {
   private characters: Character[] = [...MOCK_CHARACTERS];
 
   getAll(): Observable<Character[]> {
-    return of([...this.characters]).pipe(delay(200));
+    return of([...this.characters]);
   }
 
   getById(id: number): Observable<Character> {
@@ -19,7 +18,7 @@ export class CharacterService {
     if (!character) {
       return throwError(() => new Error(`Postać o ID ${id} nie istnieje`));
     }
-    return of({ ...character }).pipe(delay(200));
+    return of({ ...character });
   }
 
   add(data: Omit<Character, 'id' | 'createdAt' | 'updatedAt' | 'imageUrl' | 'tags'>): Observable<Character> {
@@ -32,6 +31,6 @@ export class CharacterService {
       updatedAt: new Date()
     };
     this.characters.push(newCharacter);
-    return of({ ...newCharacter }).pipe(delay(200));
+    return of({ ...newCharacter });
   }
 }
