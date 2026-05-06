@@ -5,10 +5,11 @@ import { Character } from '../../core/models/character.model';
 import { CharacterService } from '../../core/services/character.service';
 import { ItemCard } from '../../shared/components/item-card/item-card';
 import { EmptyState } from '../../shared/components/empty-state/empty-state';
+import { ErrorMessage } from '../../shared/components/error-message/error-message';
 
 @Component({
   selector: 'app-characters',
-  imports: [CommonModule, RouterLink, ItemCard, EmptyState],
+  imports: [CommonModule, RouterLink, ItemCard, EmptyState, ErrorMessage],
   templateUrl: './characters.html',
   styleUrl: './characters.scss',
 })
