@@ -20,24 +20,17 @@ Aplikacja dostępna pod adresem `http://localhost:4200`
 - ReactiveFormsModule
 
 ## Architektura
-src/app/
-├── core/
-│   ├── models/
-│   │   ├── character.model.ts     # interfejs Character, STATUS_LABELS
-│   │   └── characters.data.ts     # dane mock (4 postacie)
-│   └── services/
-│       └── character.service.ts   # mock API na Observable
-├── features/
-│   ├── home/                      # strona główna ze statystykami
-│   ├── characters/                # lista bohaterów z wyszukiwarką
-│   ├── character-detail/          # szczegóły bohatera
-│   └── character-form/            # formularz dodawania
-└── shared/
-└── components/
-├── header/                # nawigacja
-├── item-card/             # karta bohatera (@Input/@Output)
-├── empty-state/           # komunikat braku wyników (@Input)
-└── error-message/         # komunikat błędu (@Input)
+
+- `core/models/` — interfejs `Character`, dane mock (4 postacie)
+- `core/services/` — `CharacterService` — mock API na `Observable`
+- `features/home/` — strona główna ze statystykami
+- `features/characters/` — lista bohaterów z wyszukiwarką
+- `features/character-detail/` — szczegóły bohatera
+- `features/character-form/` — formularz dodawania
+- `shared/components/header/` — nawigacja
+- `shared/components/item-card/` — karta bohatera (`@Input` / `@Output`)
+- `shared/components/empty-state/` — komunikat braku wyników (`@Input`)
+- `shared/components/error-message/` — komunikat błędu (`@Input`)
 
 ## Funkcjonalności
 
