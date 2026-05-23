@@ -1,25 +1,30 @@
 <div class="card">
+  <div class="image-wrapper">
     <img [src]="character.imageUrl" [alt]="character.name" />
-    <div class="card-body">
-      <h3>{{ character.name }}</h3>
-      <p>{{ character.series }}</p>
-      <span [class]="character.status">{{ statusLabels[character.status] }}</span>
-      <p>Moc: {{ character.power }}/10</p>
-  
-      @if (showDetails) {
-        <p>{{ character.description }}</p>
-        <div>
-          @for (tag of character.tags; track tag) {
-            <span class="tag">{{ tag }}</span>
-          }
-        </div>
-      }
-  
-      <div class="card-actions">
-        <button (click)="toggleDetails()">
-          {{ showDetails ? 'Zwiń' : 'Rozwiń szczegóły' }}
-        </button>
-        <a [routerLink]="['/characters', character.id]">Szczegóły →</a>
+    @if (isLocal) {
+      <span class="badge-local">Twoja postac</span>
+    }
+  </div>
+  <div class="card-body">
+    <h3>{{ character.name }}</h3>
+    <p>{{ character.series }}</p>
+    <span [class]="character.status">{{ statusLabels[character.status] }}</span>
+    <p>Moc: {{ character.power }}/10</p>
+
+    @if (showDetails) {
+      <p>{{ character.description }}</p>
+      <div>
+        @for (tag of character.tags; track tag) {
+          <span class="tag">{{ tag }}</span>
+        }
       </div>
+    }
+
+    <div class="card-actions">
+      <button (click)="toggleDetails()">
+        {{ showDetails ? 'Zwijn' : 'Rozwijn szczegoly' }}
+      </button>
+      <a [routerLink]="['/characters', character.id]">Szczegoly</a>
     </div>
   </div>
+</div>

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MOCK_CHARACTERS } from '../../core/models/characters.data';
+import { CharacterService } from '../../core/services/character.service';
+import { Character } from '../../core/models/character.model';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,37 @@ import { MOCK_CHARACTERS } from '../../core/models/characters.data';
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home {
-  projectName = 'Marvel Library';
-  projectDescription = 'Aplikacja do przeglądania bohaterów Marvel — sprawdzaj statusy, serie i poziom mocy postaci.';
+export class Home implements OnInit {
+  private characterService = inject(CharacterService);
+
+  projectName = 'Rick & Morty Explorer';
+  projectDescription = 'Aplikacja do przeglądania postaci z serialu Rick and Morty — sprawdzaj statusy, lokacje i poziom mocy bohaterów.';
   author = {
     name: 'Dominik Ruszkiewicz',
     study: 'Informatyka, sem. VI',
     note: 'Projekt semestralny z przedmiotu Framework Angular.'
   };
 
-  total = MOCK_CHARACTERS.length;
-  active = MOCK_CHARACTERS.filter(c => c.status === 'active').length;
-  deceased = MOCK_CHARACTERS.filter(c => c.status === 'deceased').length;
-  retired = MOCK_CHARACTERS.filter(c => c.status === 'retired').length;
-  strongest = MOCK_CHARACTERS.reduce((a, b) => a.power > b.power ? a : b);
+  total = 0;
+  active = 0;
+  deceased = 0;
+  retired = 0;
+  strongest: Character | null = null;
+  isLoading = true;
+
+  ngOnInit(): void {
+    this.characterService.getAll().subscribe({
+      next: (chars) => {
+        this.total = chars.length;
+        this.active = chars.filter(c => c.status === 'active').length;
+        this.deceased = chars.filter(c => c.status === 'deceased').length;
+        this.retired = chars.filter(c => c.status === 'retired').length;
+        this.strongest = chars.reduce((a, b) => a.power > b.power ? a : b);
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
+  }
 }

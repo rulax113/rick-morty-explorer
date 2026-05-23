@@ -2,23 +2,39 @@
   <div class="page-header">
     <h1>Bohaterowie <span class="count">({{ filteredCharacters.length }})</span></h1>
     <div class="header-actions">
-      <input
-        type="text"
-        placeholder="Szukaj..."
-        [value]="searchQuery"
-        (input)="onSearchChange($event)"
-        class="search-input"
-      />
-      <a routerLink="/characters/new" class="btn-add">+ Dodaj postać</a>
+      <div class="search-wrapper">
+        <input
+          type="text"
+          placeholder="Szukaj..."
+          [value]="searchQuery"
+          (input)="onSearchChange($event)"
+          class="search-input"
+        />
+        @if (searchQuery) {
+          <button class="clear-btn" (click)="clearSearch()">✕</button>
+        }
+      </div>
+      <a routerLink="/characters/new" class="btn-add">+ Dodaj postac</a>
     </div>
   </div>
 
+  <div class="filters">
+    @for (option of statusOptions; track option.value) {
+      <button
+        class="filter-btn"
+        [class.active]="statusFilter === option.value"
+        (click)="setStatus(option.value)">
+        {{ option.label }}
+      </button>
+    }
+  </div>
+
   @if (isLoading) {
-    <p class="loading">Ładowanie...</p>
+    <div class="spinner"></div>
   } @else if (error) {
     <app-error-message [message]="error" />
   } @else if (filteredCharacters.length === 0) {
-    <app-empty-state [message]="'Brak wyników dla: ' + searchQuery" />
+    <app-empty-state [message]="'Brak wynikow dla: ' + searchQuery" />
   } @else {
     <div class="cards-grid">
       @for (character of filteredCharacters; track character.id) {

@@ -17,6 +17,14 @@
     color: #1a1a2e;
   }
 
+  .error-box {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
   .form-group {
     display: flex;
     flex-direction: column;
