@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/character-form/character-form').then(m => m.CharacterForm)
   },
   {
+    path: 'characters/:id/edit',
+    loadComponent: () => import('./features/character-edit/character-edit').then(m => m.CharacterEdit)
+  },
+  {
     path: 'characters/:id',
     loadComponent: () => import('./features/character-detail/character-detail').then(m => m.CharacterDetail)
   },

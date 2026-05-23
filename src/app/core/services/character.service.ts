@@ -43,6 +43,10 @@ export class CharacterService {
     localStorage.setItem(LOCAL_KEY, JSON.stringify(characters));
   }
 
+  isLocal(id: number): boolean {
+    return this.getLocalCharacters().some(c => c.id === id);
+  }
+
   getAll(): Observable<Character[]> {
     const pages$ = [1, 2].map((page) =>
       this.http.get<RamResponse>(`${API_URL}?page=${page}`).pipe(
@@ -88,5 +92,31 @@ export class CharacterService {
     };
     this.saveLocalCharacters([...localChars, newCharacter]);
     return of({ ...newCharacter });
+  }
+
+  update(id: number, data: Partial<Character>): Observable<Character> {
+    const localChars = this.getLocalCharacters();
+    const index = localChars.findIndex(c => c.id === id);
+    if (index === -1) {
+      return throwError(() => new Error('Można edytować tylko własne postacie'));
+    }
+    const updated: Character = {
+      ...localChars[index],
+      ...data,
+      updatedAt: new Date()
+    };
+    localChars[index] = updated;
+    this.saveLocalCharacters(localChars);
+    return of({ ...updated });
+  }
+
+  delete(id: number): Observable<void> {
+    const localChars = this.getLocalCharacters();
+    const filtered = localChars.filter(c => c.id !== id);
+    if (filtered.length === localChars.length) {
+      return throwError(() => new Error('Można usuwać tylko własne postacie'));
+    }
+    this.saveLocalCharacters(filtered);
+    return of(void 0);
   }
 }
