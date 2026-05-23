@@ -1,18 +1,18 @@
-header {
-  background: #1a1a1a;
+.app-header {
+  background: #1a1a2e;
   color: white;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 
-  span {
+  .logo {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #e23636;
-    letter-spacing: 1px;
+    color: #27ae60;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    &:hover { text-decoration: none; color: #2ecc71; }
   }
 
   nav {
@@ -21,9 +21,11 @@ header {
 
     a {
       color: #ccc;
-      font-weight: 500;
+      text-decoration: none;
+      font-size: 0.95rem;
       transition: color 0.2s;
-      &:hover, &.active { color: #e23636; text-decoration: none; }
+      &:hover { color: white; text-decoration: none; }
+      &.active { color: #27ae60; font-weight: 600; }
     }
   }
 }
