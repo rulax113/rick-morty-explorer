@@ -14,7 +14,7 @@
   </div>
 
   @if (isLoading) {
-    <p class="loading">Ładowanie...</p>
+    <div class="spinner"></div>
   } @else if (error) {
     <app-error-message [message]="error" />
   } @else if (filteredCharacters.length === 0) {

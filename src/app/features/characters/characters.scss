@@ -18,11 +18,15 @@
     font-size: 1rem;
     width: 280px;
     &:focus { outline: none; border-color: #27ae60; }
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
   }
 
   .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 280px);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1.5rem;
   }
 
@@ -30,6 +34,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
   }
 
   .btn-add {
@@ -38,6 +43,7 @@
     color: white;
     border-radius: 6px;
     font-weight: 600;
+    white-space: nowrap;
     &:hover { background: #219a52; text-decoration: none; }
   }
 }

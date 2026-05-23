@@ -2,7 +2,7 @@
   <a routerLink="/characters" class="back-link">← Powrót do listy</a>
 
   @if (isLoading) {
-    <p class="loading">Ładowanie...</p>
+    <div class="spinner"></div>
   } @else if (error) {
     <app-error-message [message]="error" />
   } @else if (character) {
