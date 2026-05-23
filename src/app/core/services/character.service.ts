@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError, forkJoin } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -33,13 +34,20 @@ function mapRamToCharacter(c: RamCharacter): Character {
 })
 export class CharacterService {
   private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
+
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
 
   private getLocalCharacters(): Character[] {
+    if (!this.isBrowser()) return [];
     const raw = localStorage.getItem(LOCAL_KEY);
     return raw ? JSON.parse(raw) : [];
   }
 
   private saveLocalCharacters(characters: Character[]): void {
+    if (!this.isBrowser()) return;
     localStorage.setItem(LOCAL_KEY, JSON.stringify(characters));
   }
 
@@ -61,7 +69,7 @@ export class CharacterService {
         return [...apiChars, ...localChars];
       }),
       catchError((err) =>
-        throwError(() => new Error('Błąd połączenia z API: ' + err.message))
+        throwError(() => new Error('Blad polaczenia z API: ' + err.message))
       )
     );
   }
@@ -98,7 +106,7 @@ export class CharacterService {
     const localChars = this.getLocalCharacters();
     const index = localChars.findIndex(c => c.id === id);
     if (index === -1) {
-      return throwError(() => new Error('Można edytować tylko własne postacie'));
+      return throwError(() => new Error('Mozna edytowac tylko wlasne postacie'));
     }
     const updated: Character = {
       ...localChars[index],
@@ -114,7 +122,7 @@ export class CharacterService {
     const localChars = this.getLocalCharacters();
     const filtered = localChars.filter(c => c.id !== id);
     if (filtered.length === localChars.length) {
-      return throwError(() => new Error('Można usuwać tylko własne postacie'));
+      return throwError(() => new Error('Mozna usuwac tylko wlasne postacie'));
     }
     this.saveLocalCharacters(filtered);
     return of(void 0);
