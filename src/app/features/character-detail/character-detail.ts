@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Character, STATUS_LABELS } from '../../core/models/character.model';
 import { CharacterService } from '../../core/services/character.service';
@@ -12,15 +12,17 @@ import { ErrorMessage } from '../../shared/components/error-message/error-messag
   styleUrl: './character-detail.scss',
 })
 export class CharacterDetail implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private characterService = inject(CharacterService);
+
   character: Character | undefined;
   statusLabels = STATUS_LABELS;
   isLoading = false;
+  isDeleting = false;
+  isLocal = false;
+  confirmDelete = false;
   error = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private characterService: CharacterService
-  ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -28,11 +30,25 @@ export class CharacterDetail implements OnInit {
     this.characterService.getById(id).subscribe({
       next: (data) => {
         this.character = data;
+        this.isLocal = this.characterService.isLocal(data.id);
         this.isLoading = false;
       },
       error: (err) => {
         this.error = err.message;
         this.isLoading = false;
+      }
+    });
+  }
+
+  onDelete(): void {
+    if (!this.character) return;
+    this.isDeleting = true;
+    this.characterService.delete(this.character.id).subscribe({
+      next: () => this.router.navigate(['/characters']),
+      error: (err) => {
+        this.error = err.message;
+        this.isDeleting = false;
+        this.confirmDelete = false;
       }
     });
   }

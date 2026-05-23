@@ -1,5 +1,5 @@
 <div class="detail-page">
-  <a routerLink="/characters" class="back-link">← Powrót do listy</a>
+  <a routerLink="/characters" class="back-link">Powrot do listy</a>
 
   @if (isLoading) {
     <div class="spinner"></div>
@@ -21,6 +21,29 @@
             <span class="tag">{{ tag }}</span>
           }
         </div>
+
+        @if (isLocal) {
+          <div class="local-actions">
+            @if (!confirmDelete) {
+              <a [routerLink]="['/characters', character.id, 'edit']" class="btn-edit">
+                Edytuj postac
+              </a>
+              <button class="btn-delete" (click)="confirmDelete = true">
+                Usun postac
+              </button>
+            } @else {
+              <div class="confirm-box">
+                <span>Na pewno usunac?</span>
+                <button class="btn-delete-confirm" [disabled]="isDeleting" (click)="onDelete()">
+                  {{ isDeleting ? 'Usuwanie...' : 'Tak, usun' }}
+                </button>
+                <button class="btn-cancel" (click)="confirmDelete = false">
+                  Anuluj
+                </button>
+              </div>
+            }
+          </div>
+        }
       </div>
     </div>
   } @else {
