@@ -1,11 +1,14 @@
 <section class="home-page">
 
-    <div class="hero-section">
-      <h1>{{ projectName }}</h1>
-      <p class="description">{{ projectDescription }}</p>
-      <a routerLink="/characters" class="cta-btn">Przeglądaj bohaterów →</a>
-    </div>
-  
+  <div class="hero-section">
+    <h1>{{ projectName }}</h1>
+    <p class="description">{{ projectDescription }}</p>
+    <a routerLink="/characters" class="cta-btn">Przeglądaj bohaterów →</a>
+  </div>
+
+  @if (isLoading) {
+    <p class="loading">Ładowanie statystyk...</p>
+  } @else {
     <div class="stats-grid">
       <div class="stat-card">
         <span class="stat-number">{{ total }}</span>
@@ -24,25 +27,28 @@
         <span class="stat-label">Na emeryturze</span>
       </div>
     </div>
-  
-    <div class="strongest-card">
-      <h2>Najpotężniejszy bohater</h2>
-      <div class="strongest-inner">
-        <img [src]="strongest.imageUrl" [alt]="strongest.name" />
-        <div>
-          <h3>{{ strongest.name }}</h3>
-          <p>{{ strongest.series }}</p>
-          <p>Moc: <strong>{{ strongest.power }}/10</strong></p>
-          <a [routerLink]="['/characters', strongest.id]" class="cta-btn">Zobacz szczegóły →</a>
+
+    @if (strongest) {
+      <div class="strongest-card">
+        <h2>Najpotężniejszy bohater</h2>
+        <div class="strongest-inner">
+          <img [src]="strongest.imageUrl" [alt]="strongest.name" />
+          <div>
+            <h3>{{ strongest.name }}</h3>
+            <p>{{ strongest.series }}</p>
+            <p>Moc: <strong>{{ strongest.power }}/10</strong></p>
+            <a [routerLink]="['/characters', strongest.id]" class="cta-btn">Zobacz szczegóły →</a>
+          </div>
         </div>
       </div>
-    </div>
-  
-    <div class="about-section">
-      <h2>O autorze projektu</h2>
-      <p><strong>Imię i nazwisko:</strong> {{ author.name }}</p>
-      <p><strong>Kierunek:</strong> {{ author.study }}</p>
-      <p>{{ author.note }}</p>
-    </div>
-  
-  </section>
+    }
+  }
+
+  <div class="about-section">
+    <h2>O autorze projektu</h2>
+    <p><strong>Imię i nazwisko:</strong> {{ author.name }}</p>
+    <p><strong>Kierunek:</strong> {{ author.study }}</p>
+    <p>{{ author.note }}</p>
+  </div>
+
+</section>

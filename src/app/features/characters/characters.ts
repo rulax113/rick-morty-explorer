@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Character } from '../../core/models/character.model';
@@ -14,12 +14,12 @@ import { ErrorMessage } from '../../shared/components/error-message/error-messag
   styleUrl: './characters.scss',
 })
 export class Characters implements OnInit {
+  private characterService = inject(CharacterService);
+
   characters: Character[] = [];
   searchQuery = '';
   isLoading = false;
   error = '';
-
-  constructor(private characterService: CharacterService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
