@@ -1,71 +1,111 @@
 .detail-page {
-    max-width: 900px;
-    margin: 0 auto;
-  
-    .back-link {
-      display: inline-block;
-      margin-bottom: 1.5rem;
-      color: #e23636;
-      font-weight: 500;
-      &:hover { text-decoration: underline; }
+  max-width: 800px;
+  margin: 0 auto;
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: #27ae60;
+    font-weight: 600;
+    font-size: 0.95rem;
+    &:hover { text-decoration: none; color: #219a52; }
+  }
+
+  .loading {
+    text-align: center;
+    padding: 3rem;
+    color: #777;
+  }
+
+  .detail-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    gap: 0;
+
+    img {
+      width: 280px;
+      min-width: 280px;
+      object-fit: cover;
+      object-position: top;
     }
-  
-    .detail-card {
+
+    .detail-info {
+      padding: 2rem;
+      flex: 1;
       display: flex;
-      gap: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      overflow: hidden;
-  
-      img {
-        width: 320px;
-        min-width: 320px;
-        height: 400px;
-        object-fit: cover;
-        object-position: top;
+      flex-direction: column;
+      gap: 0.6rem;
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1a1a2e;
+        margin-bottom: 0.2rem;
       }
-  
-      .detail-info {
-        padding: 2rem;
+
+      .series {
+        color: #777;
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 0.3rem 0.9rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        width: fit-content;
+
+        &.active { background: #d4edda; color: #155724; }
+        &.retired { background: #fff3cd; color: #856404; }
+        &.deceased { background: #f8d7da; color: #721c24; }
+      }
+
+      .description {
+        color: #444;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-top: 0.5rem;
+      }
+
+      .power {
+        font-size: 0.95rem;
+        color: #555;
+
+        strong { color: #27ae60; font-size: 1.1rem; }
+      }
+
+      .tags {
         display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-  
-        h1 { font-size: 2rem; color: #1a1a1a; }
-  
-        .series { color: #666; font-size: 1rem; }
-  
-        .status {
-          display: inline-block;
-          padding: 0.3rem 0.8rem;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 600;
-          width: fit-content;
-  
-          &.active { background: #d4edda; color: #155724; }
-          &.retired { background: #fff3cd; color: #856404; }
-          &.deceased { background: #f8d7da; color: #721c24; }
-        }
-  
-        .description { color: #444; line-height: 1.6; }
-  
-        .power { font-size: 1rem; color: #333; }
-  
-        .tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-  
-          .tag {
-            background: #f0f0f0;
-            color: #555;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-          }
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.5rem;
+
+        .tag {
+          background: #e8f5e9;
+          color: #2e7d32;
+          padding: 0.2rem 0.6rem;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          font-weight: 500;
         }
       }
     }
   }
+}
+
+@media (max-width: 600px) {
+  .detail-page .detail-card {
+    flex-direction: column;
+
+    img {
+      width: 100%;
+      min-width: unset;
+      height: 300px;
+    }
+  }
+}
