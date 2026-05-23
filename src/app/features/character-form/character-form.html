@@ -1,53 +1,66 @@
 <div class="form-page">
-    <a routerLink="/characters" class="back-link">← Powrót do listy</a>
-    <h1>Dodaj nową postać</h1>
-  
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-card">
-  
-      <div class="form-group">
-        <label>Nazwa postaci</label>
-        <input type="text" formControlName="name" placeholder="np. Spider-Man" />
-        @if (form.get('name')?.invalid && form.get('name')?.touched) {
-          <span class="error">Nazwa jest wymagana (min. 2 znaki)</span>
+  <a routerLink="/characters" class="back-link">← Powrót do listy</a>
+  <h1>Dodaj nową postać</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="name">Nazwa postaci</label>
+      <input id="name" formControlName="name" placeholder="np. Rick Sanchez" />
+      @if (form.get('name')?.invalid && form.get('name')?.touched) {
+        <span class="error">Nazwa jest wymagana (min. 2 znaki)</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="series">Lokacja</label>
+      <input id="series" formControlName="series" placeholder="np. Citadel of Ricks" />
+      @if (form.get('series')?.invalid && form.get('series')?.touched) {
+        <span class="error">Lokacja jest wymagana</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Opis</label>
+      <textarea id="description" formControlName="description" placeholder="Krótki opis postaci..."></textarea>
+      @if (form.get('description')?.invalid && form.get('description')?.touched) {
+        <span class="error">Opis jest wymagany (min. 10 znaków)</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="imageUrl">URL zdjęcia <span class="optional">(opcjonalne)</span></label>
+      <input id="imageUrl" formControlName="imageUrl" placeholder="https://..." />
+      @if (form.get('imageUrl')?.invalid && form.get('imageUrl')?.touched) {
+        <span class="error">Podaj poprawny adres URL (https://...)</span>
+      }
+      @if (form.get('imageUrl')?.value && form.get('imageUrl')?.valid) {
+        <div class="image-preview">
+          <img [src]="form.get('imageUrl')?.value" alt="Podgląd" />
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        @for (s of statuses; track s.value) {
+          <option [value]="s.value">{{ s.label }}</option>
         }
-      </div>
-  
-      <div class="form-group">
-        <label>Seria komiksowa</label>
-        <input type="text" formControlName="series" placeholder="np. The Amazing Spider-Man" />
-        @if (form.get('series')?.invalid && form.get('series')?.touched) {
-          <span class="error">Seria jest wymagana</span>
-        }
-      </div>
-  
-      <div class="form-group">
-        <label>Opis</label>
-        <textarea formControlName="description" rows="4" placeholder="Opis postaci..."></textarea>
-        @if (form.get('description')?.invalid && form.get('description')?.touched) {
-          <span class="error">Opis jest wymagany (min. 10 znaków)</span>
-        }
-      </div>
-  
-      <div class="form-group">
-        <label>Status</label>
-        <select formControlName="status">
-          @for (s of statuses; track s.value) {
-            <option [value]="s.value">{{ s.label }}</option>
-          }
-        </select>
-      </div>
-  
-      <div class="form-group">
-        <label>Poziom mocy: {{ form.get('power')?.value }}/10</label>
-        <input type="range" formControlName="power" min="1" max="10" />
-      </div>
-  
-      <div class="form-actions">
-        <a routerLink="/characters" class="btn-cancel">Anuluj</a>
-        <button type="submit" [disabled]="form.invalid" class="btn-submit">
-          Dodaj postać
-        </button>
-      </div>
-  
-    </form>
-  </div>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="power">Poziom mocy: {{ form.get('power')?.value }}/10</label>
+      <input id="power" type="range" min="1" max="10" formControlName="power" class="range-input" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="form.invalid || isSubmitting">
+        {{ isSubmitting ? 'Dodawanie...' : 'Dodaj postać' }}
+      </button>
+      <a routerLink="/characters">Anuluj</a>
+    </div>
+
+  </form>
+</div>

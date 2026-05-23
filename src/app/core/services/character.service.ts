@@ -75,13 +75,13 @@ export class CharacterService {
     );
   }
 
-  add(data: Omit<Character, 'id' | 'createdAt' | 'updatedAt' | 'imageUrl' | 'tags'>): Observable<Character> {
+  add(data: Omit<Character, 'id' | 'createdAt' | 'updatedAt' | 'tags'> & { imageUrl?: string }): Observable<Character> {
     const localChars = this.getLocalCharacters();
     const maxId = localChars.length > 0 ? Math.max(...localChars.map((c) => c.id)) : 100000;
     const newCharacter: Character = {
       ...data,
       id: maxId + 1,
-      imageUrl: 'https://rickandmortyapi.com/api/character/avatar/19.jpeg',
+      imageUrl: data.imageUrl || 'https://rickandmortyapi.com/api/character/avatar/19.jpeg',
       tags: [],
       createdAt: new Date(),
       updatedAt: new Date(),
